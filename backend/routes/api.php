@@ -20,11 +20,10 @@ Route::prefix('v1')->group(function () {
     Route::get('/', function () {
         return response()->json(['status' => true]);
     });
-    Route::namespace('App\Http\Controllers\api\v1')->group(function (){
-    Route::resource('/users', 'UserController')->except(['create', 'edit']);
+    Route::namespace('App\Http\Controllers\api\v1')->group(function () {
+        Route::resource('/users', 'UserController')->except(['create', 'edit']);
     });
 });
-
 Route::post('login', [Api\AuthController::class, 'login']);
 Route::post('register', [Api\RegisterController::class, 'register']);
 Route::post('forgot', [Api\ForgotController::class, 'forgot']);
