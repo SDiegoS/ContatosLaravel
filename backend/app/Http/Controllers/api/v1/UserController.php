@@ -101,4 +101,21 @@ class UserController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()], 400);
         }
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function filterUsers(Request $request) {
+        try {
+            $query = User::query();
+
+            if ($request->filled('not_tipo')) {
+                $query->where('tipo', '!=', $request->not_tipo);
+            }
+            return response()->json(['status' => true, 'users' => $query->get()], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 400);
+        }
+    }
 }
